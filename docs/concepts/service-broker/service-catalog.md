@@ -28,15 +28,37 @@ Service Catalog is built on the [Open Service Broker API](https://github.com/ope
 
 ## Usage
 
-*Broker Resources* identify available Service Brokers and can be added to a service catalog.
 
-1. Get a list of services
-1. Returns a list of services
-1. Provision a new instance of a service
-1. Creates a new instance and returns it
-1. Bind to the instance
-1. Returns provider-specific information, such as coordinates, credentials, configs, for Kubernetes to access service
-1. Cleanup - delete binding, delete instance
+### List
+
+![List Services](/images/docs/service-catalog-list.svg)
+
+1. The Catalog Operator can add Broker Resources, which identify available Service Brokers.
+1. Service Catalog requests a list of Services from the Service Broker.
+1. The Service Broker returns a list of Services.
+1. The Service Consumer can query the ServiceClass for a list of Services.
+
+### Provision
+
+![Provision a Service](/images/docs/service-catalog-provision.svg)
+
+1. The Service Consumer provisions a new instance.
+1. Service Catalog requests an instance from the Service Broker.
+1. The Service Broker creates a new instance of the Service.
+1. The Service Consumer can check the status of the instance.
+1. The Service instance is ready for use.
+
+### Bind
+
+![Bind to a Service](/images/docs/service-catalog-bind.svg)
+
+1. The Service Consumer requests a binding to the instance.
+1. The Service Broker returns provider-specific information, such as coordinates, credentials, configs, for Kubernetes to access the Service.
+1. Binding information and credentials are delivered to the Kubernetes API Server.
+
+### Cleanup
+1. Delete binding
+1. Delete instance
 
 Credentials are delivered to users in normal Kubernetes secrets and contain information necessary to connect with the service instance.
 
@@ -48,6 +70,8 @@ Credentials are delivered to users in normal Kubernetes secrets and contain info
 * ServiceBinding - interface to use the service instance
 
 [sample service brokers](https://github.com/openservicebrokerapi/servicebroker/blob/master/gettingStarted.md#sample-service-brokers)
+
+*Broker Resources* identify available Service Brokers and can be added to a service catalog.
 
 {% endcapture %}
 
