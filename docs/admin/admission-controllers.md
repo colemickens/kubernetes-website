@@ -468,6 +468,15 @@ metadata:
   name: namespace3
 ```
 
+#### Internal Behavior
+This admission controller has the following behavior:
+  1. Check the namespace for an annotation `scheduler.kubernetes.io/nodeSelector` that defines the default nodeSelector as well as the whitelist of allowed nodeSelectors.
+  2. If the namespace has no such annotation, use `clusterDefaultNodeSelector` as the default nodeSelector.
+  3. Finally, the pod nodeSelector is evaluated against the namespace-specific entry of the plugin configuration for compatibility.
+
+Note: PodTolerationRestriction is more versatile and powerful than PodNodeSelector and can encompass the scenarios supported by PodNodeSelector.
+
+
 ### PersistentVolumeClaimResize
 
 This admission controller implements additional validations for checking incoming `PersistentVolumeClaim` resize requests.
